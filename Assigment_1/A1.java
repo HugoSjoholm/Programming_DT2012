@@ -13,9 +13,9 @@ public class A1{
 		
 		// Modify and complete the following code
 
-		int years = (int)(timeToComplete/365.0);
-		int months = (int)(timeToComplete/30.0);
-		int days = (int)timeToComplete;
+		int days = (int)(timeToComplete);
+		int months = (int)((timeToComplete)/MONTH);
+		int years = (int)((timeToComplete/(YEAR*HOURS_PER_DAY)));
 		int hours = totalHours;
 		//timeToComplete = 0;
 
@@ -23,7 +23,7 @@ public class A1{
 
 
 		// WARNING! Do not modify these outputs. Use these exact strings.
-
+		System.out.println("timeToComplete " + timeToComplete);
 		System.out.println("Hours to completion: " + totalHours);
 		System.out.println("Daily dedication: " + dailyEffort);
 		System.out.print("it will take you: ");
