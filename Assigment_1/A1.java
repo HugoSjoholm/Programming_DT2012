@@ -1,4 +1,4 @@
-public class A1{
+public class A1 {
 
 	private static final int YEAR = 365;
 	private static final int MONTH = 30;
@@ -10,17 +10,23 @@ public class A1{
 		double dailyEffort = Double.parseDouble(args[1]);
 
 		double amountOfDays = totalHours / dailyEffort;
-		
+
 		// Modify and complete the following code
-		
-		int years = (int)((amountOfDays / 365));
-		int months = (int)((amountOfDays % 365)/30);
-		int days = (int)((amountOfDays % 365)%30);
-		int hours = (int)((amountOfDays % 365)%(30*24));
+
+		int years = (int) ((amountOfDays / 365));
+		double yearRemainder = (amountOfDays % 365);
+
+		int months = (int) (yearRemainder / 30);
+		double monthRemainder = (yearRemainder % 30);
+
+		int days = (int) (monthRemainder / 24);
+		double dayRemainder = (monthRemainder % 24);
+
+		int hours = (int) (dayRemainder / 60);
+		double hoursRemainder = (dayRemainder % 60);
 		// amountOfDays = 0;
 
-		int minutes = (int)((amountOfDays % 365)%(30*24*60));
-
+		int minutes = (int) hoursRemainder;
 
 		// WARNING! Do not modify these outputs. Use these exact strings.
 		System.out.println("amountOfDays " + amountOfDays);
