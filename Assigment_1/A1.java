@@ -27,7 +27,6 @@ public class A1 {
 		if (overaide) {
 			amountOfDays = Integer.parseInt(args[0]);
 		}
-
 		// Modify and complete the following code
 
 		int years = (int) ((amountOfDays / 365));
