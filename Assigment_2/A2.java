@@ -1,4 +1,4 @@
-public class A2{
+public class A2 {
 
 	public static void main(String[] args) {
 		String firstName = args[0].toLowerCase().replace('ö', 'o').replace('ä', 'a').replace('å', 'a');
@@ -7,7 +7,21 @@ public class A2{
 
 		// Modify and complete the following code
 
-		String userName = "";
+		System.out.println("expected vars: (Full first name) (full last name) (year with two digits)"); // UX
+		System.out.println("expected vars: (Hugo) (Sjöholm) (24)"); // making it EXXTRA clear with an example of my own.
+
+		// reduces name and lastname to 3 charakters, but only if above three-
+		// charackters. Thanks to a Math.min based on the ammount of chatakters in the-
+		// string (.lenght)
+		firstName = firstName.substring(0, Math.min(firstName.length(), 3));
+		lastName = lastName.substring(0, Math.min(lastName.length(), 3));
+
+		if (admissionYear.length() > 2) {
+			admissionYear = admissionYear.substring(admissionYear.length() - 2); // discards all charakters in strin
+																					// exepct the last two,.
+		}
+
+		String userName = firstName + lastName + admissionYear;
 		String email = userName + "@student.hh.se";
 
 		// WARNING! Do not change these lines. Use exactly these strings as your output.
