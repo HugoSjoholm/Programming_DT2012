@@ -3,20 +3,36 @@ public class A4{
 		int base10 = Integer.parseInt(args[0]);
 		int base = Integer.parseInt(args[1]);
 		if (base10 > 0) {
-			String num = "";
-			String res = "";
+			String num = "0123456789ABCDEFGHIJKLMNOP";
+			String result = ""; //result
 			int counter = base10;
 			int temp = 0;
-			
+			int rest = 0;
 			// Your code here...
+            
+            if (base > 0 && base < 26) {
+                //System.out.println(num.length());
+                //temp = base10/base;
+                //System.out.println(temp);
+                //System.out.println(base10%base);
+                rest = 0;
+                while (counter > 0) {
+					rest = counter % base;
+					counter = (int)(counter / base);
+					result = num.charAt(rest) + result;
+					//System.out.println(result);
+				}
+            }
 
-			for (int i = 0; i < num.length(); i++) {
-				res = num.charAt(i) + res;
-			}
+			/*for (int i = 0; i < num.length(); i++) {
+                
+				result = result + num.charAt(i);
+
+            }*/
 
 			// WARNING! Do not change these lines. Use exactly these strings as your output.
 
-			System.out.println(base10 + " in base-10 is " + res + " in base-" + base);
+			System.out.println(base10 + " in base-10 is " + result + " in base-" + base);
 		}
 	}
 }
