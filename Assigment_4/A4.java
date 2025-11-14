@@ -11,16 +11,12 @@ public class A4{
 			// Your code here...
             
             if (base > 0 && base < 26) {
-                //System.out.println(num.length());
-                //temp = base10/base;
-                //System.out.println(temp);
-                //System.out.println(base10%base);
                 rest = 0;
                 while (counter > 0) {
 					rest = counter % base;
 					counter = (int)(counter / base);
 					result = num.charAt(rest) + result;
-					//System.out.println(result);
+				
 				}
             }
 
