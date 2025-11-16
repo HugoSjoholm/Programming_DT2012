@@ -53,7 +53,7 @@ public class A3{
 					balance = balance - betHome;
 				}
 				else {
-					System.out.println("something went wrong!");
+					System.out.println("uhhh something went wrong, contact the dev lmao!");
 				}
 			}
 		}
