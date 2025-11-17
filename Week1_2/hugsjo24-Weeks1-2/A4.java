@@ -11,7 +11,6 @@ public class A4{
 			// Your code here...
             
             if (base > 0 && base < 26) {
-                rest = 0;
                 while (counter > 0) {
 					rest = counter % base;
 					counter = (int)(counter / base);
