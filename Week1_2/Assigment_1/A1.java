@@ -34,15 +34,15 @@ public class A1 {
 		System.out.print(" - Hours to completion: " + totalHours);
 		System.out.println(" - Daily dedication: " + dailyEffort);
 
-		if (true)
-			System.out.print(years + " years " + "+ " + yearRemainder + " days, ");
-		if (true)
-			System.out.print(months + " months " + "+ " + monthRemainder + " days, ");
-		if (true)
-			System.out.print(days + " days " + "(" + dayRemainder + "), ");
-		if (true)
-			System.out.print(hours + " hours " + "(" + hoursRemainder + "), ");
-		if (true)
+		if (years > 0)
+			System.out.print(years + " years ");
+		if (months > 0)
+			System.out.print(months + " months ");
+		if (days > 0)
+			System.out.print(days + " days ");
+		if (hours > 0)
+			System.out.print(hours + " hours ");
+		if (minutes > 0)
 			System.out.println(minutes + " minutes ");
 
 		System.out.println(" - ");
