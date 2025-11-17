@@ -1,6 +1,6 @@
-public class A3{
+public class A3 {
 	public static void main(String[] args) {
-		int nMatches = Integer.parseInt(args[0]);
+		int nrOfMatches = Integer.parseInt(args[0]);
 		double betHome = Double.parseDouble(args[1]);
 		double betAway = Double.parseDouble(args[2]);
 		int awayWins = 0;
@@ -13,8 +13,11 @@ public class A3{
 		double balance = 0;
 
 		// Your code here...
+		int nMatches = nrOfMatches; //don't like the variable name but can't touch the code above
+
+
 		//i is the index for the current match.
-		for(int i=1; i < nMatches; i++) {
+		for(int i=1; i <= nMatches; i++) {
 			//determine if home or away. 
 			double winTieLossChance = Math.random();
 			if (i % 2 == 0) {
