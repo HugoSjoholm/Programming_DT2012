@@ -30,21 +30,22 @@ public class A1 {
 		int minutes = (int) (hoursRemainder * 60);
 
 		// WARNING! Do not modify these outputs. Use these exact strings.
-		System.out.print("amountOfDays = " + amountOfDays);
-		System.out.print(" - Hours to completion: " + totalHours);
-		System.out.println(" - Daily dedication: " + dailyEffort);
+		//System.out.print("amountOfDays = " + amountOfDays);
+		System.out.println("Hours to completion: " + totalHours);
+		System.out.println("Daily dedication: " + dailyEffort);
+		System.out.print("it will take you: ");
 
 		if (years > 0)
-			System.out.print(years + " years ");
+			System.out.print(years + " years, ");
 		if (months > 0)
-			System.out.print(months + " months ");
+			System.out.print(months + " months, ");
 		if (days > 0)
-			System.out.print(days + " days ");
+			System.out.print(days + " days, ");
 		if (hours > 0)
-			System.out.print(hours + " hours ");
+			System.out.print(hours + " hours, ");
 		if (minutes > 0)
-			System.out.println(minutes + " minutes ");
+			System.out.print(minutes + " minutes, ");
 
-		System.out.println(" - ");
+		System.out.println();
 	}
 }
