@@ -28,8 +28,8 @@ public class A1 {
 
 				// month
 				int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-				int age_month = (int) (Math.random() * 12 + 1);
-				age_month = 2;
+				int age_month = (int) (Math.random() * 12 + 0.999); //0.999 to avoid getting 13. If Math.random returns 1 then gets mutiplied by 12 AND THEN you add 1 you get 13. but if you add 0.999 you can't get 13. 
+				//age_month = 2;
 				// day
 				int leapDay = 0;
 				if ((age_year % 4 == 0 && age_year % 100 != 0) || (age_year % 400 == 0)) { //checks if it's a leap year with some math
