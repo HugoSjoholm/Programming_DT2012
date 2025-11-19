@@ -30,26 +30,44 @@ public class A1 {
 				int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 				int age_month = (int) (Math.random() * 12 + 0.999); //0.999 to avoid getting 13. If Math.random returns 1 then gets mutiplied by 12 AND THEN you add 1 you get 13. but if you add 0.999 you can't get 13. 
 				//age_month = 2;
+				String monthOffset = "0";
+				if (age_month > 9) {
+					monthOffset = "";
+				}
+				
 				// day
 				int leapDay = 0;
 				if ((age_year % 4 == 0 && age_year % 100 != 0) || (age_year % 400 == 0)) { //checks if it's a leap year with some math
 					leapDay = 1;
 				}
 				int age_day = (int) (Math.random() * daysInMonth[age_month-1] + 1 + leapDay);
+				String dayOffset = "0";
+				if (age_day > 9) {
+					dayOffset = "";
+				}
 			
 			//telefone
 				String phone = "07";
-				phone = phone + (int)(Math.random() * Math.pow(10, 8));
+				String tmp = "" + (Math.random());
+				tmp = tmp.split("\\.")[1];
+				tmp = tmp.substring(0,8);
+				//System.out.println("tmp is " + tmp);
+				phone = phone + tmp;
 
 			//salary
 				int salaryButLocal = (int)(((Math.random() * (maxSalary - minSalary)) + minSalary)*100);
 				double salaryRounded = (double)(salaryButLocal/100.0);
 
+				String salaryOffset = "";
+				if(String.valueOf(salaryRounded).length() < 8) {
+					salaryOffset = "0";
+				}
+
 			if (commaSeperated) {
-				System.out.println(age_year + "-" + age_month + "-" + age_day + "," + phone + "," + salaryRounded);
+				System.out.println(age_year + "-" +  monthOffset + age_month + "-" + dayOffset + age_day + "," + phone + "," + salaryRounded + salaryOffset);
 			}
 			else {
-				System.out.println(age_year + "-" + age_month + "-" + age_day + " " + phone + " " + salaryRounded);
+				System.out.println(age_year + "-" + monthOffset + age_month + "-" + dayOffset + age_day + " " + phone + " " + salaryRounded + salaryOffset);
 			}
 		}
 
