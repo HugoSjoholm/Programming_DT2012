@@ -20,7 +20,7 @@ public class A1 {
 			//System.out.println("normal seperator");
 		}
 
-		System.out.println("Number of data points " + numDataPoints);
+		System.out.println(numDataPoints);
 		for (int i = 0; i < numDataPoints; i++) {
 			// age
 				// years

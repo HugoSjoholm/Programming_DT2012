@@ -7,11 +7,15 @@ public class A2 {
 		// We setup a scanner to read the data
 		Scanner data = new Scanner(System.in);
 
+		
+		
 		// Our first line tell us the size of the arrays we have to prepare
 		int numDataPoints = Integer.parseInt(data.nextLine());
+		System.out.println(numDataPoints);
 
 		// Modify this to declare the arrays correctly
 		String[] yearAndPhone = new String[numDataPoints];
+
 		int[] salary = new int[numDataPoints];
 
 		// Read data line by line
@@ -22,6 +26,10 @@ public class A2 {
 		// TASK:
 		// Go line by line and fill up the two arrays
 			// For each iteration, put the data in the correct index for BOTH arrays
+			for (int i = 0; i < numDataPoints - 1; i++) {
+				System.out.println(data.nextLine());
+			}
+		
 
 		// Close the Scanner
 		data.close();
@@ -45,8 +53,8 @@ public class A2 {
 		// Now, you have a set of sorted arrays
 
 		// These lines print out the sorted arrays
-		System.out.println(numDataPoints);
-		for(int i = 0; i < numDataPoints; i++)
-			System.out.println(yearAndPhone[i] + salary[i]);
+//		System.out.println(numDataPoints);
+//		for(int i = 0; i < numDataPoints; i++)
+//			System.out.println(yearAndPhone[i] + salary[i]);
 	}
 }
