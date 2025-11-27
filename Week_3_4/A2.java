@@ -16,18 +16,21 @@ public class A2 {
 		// Modify this to declare the arrays correctly
 		String[] yearAndPhone = new String[numDataPoints];
 
-		int[] salary = new int[numDataPoints];
+		double[] salary = new double[numDataPoints];
 
 		// Read data line by line
 		String currLine = data.nextLine();
-		// Analize: what does this line do?
+		// get the position of the second space
 		int cutPosition = currLine.indexOf(" ", currLine.indexOf(" ") + 1) + 1;
 
 		// TASK:
 		// Go line by line and fill up the two arrays
 			// For each iteration, put the data in the correct index for BOTH arrays
 			for (int i = 0; i < numDataPoints - 1; i++) {
-				System.out.println(data.nextLine());
+				String tmp = data.nextLine();
+				yearAndPhone[i] = tmp.substring(0, cutPosition);
+				salary[i] = Double.parseDouble(tmp.substring(cutPosition));
+				//System.out.println(yearAndPhone[i] + salary[i]);
 			}
 		
 
@@ -38,8 +41,23 @@ public class A2 {
 		
 		// 1: You will need variables to keep values temporarily, one for the
 		//    salary and one for the date and telephone
-		int swap = 0;
+		double swap = 0;
 		String swapString = "";
+		for (int j = 0; j < salary.length; j++) {			
+			for (int i = 0; i < salary.length - 1; i++) {
+				if (salary[i] > salary[i + 1]) {
+					swap = salary[i];
+					salary[i] = salary[i + 1];
+					salary[i + 1] = swap;
+	
+					swapString = yearAndPhone[i];
+					yearAndPhone[i] = yearAndPhone[i+1];
+					yearAndPhone[i+1] = swapString;
+	
+				}
+			}
+		}
+
 
 		// You will need to go through each value in the array (how do we traverse an array?)
 			// For each value you go through, you go again through the array until you find a value
@@ -53,8 +71,8 @@ public class A2 {
 		// Now, you have a set of sorted arrays
 
 		// These lines print out the sorted arrays
-//		System.out.println(numDataPoints);
-//		for(int i = 0; i < numDataPoints; i++)
-//			System.out.println(yearAndPhone[i] + salary[i]);
+		System.out.println(numDataPoints);
+		for(int i = 0; i < numDataPoints; i++)
+			System.out.println(yearAndPhone[i] + salary[i]);
 	}
 }

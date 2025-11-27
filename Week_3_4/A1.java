@@ -59,7 +59,7 @@ public class A1 {
 				double salaryRounded = (double)(salaryButLocal/100.0);
 
 				String salaryOffset = "";
-				if(String.valueOf(salaryRounded).length() < 8) {
+				if(String.valueOf(salaryRounded).substring(5).length() < 3) {
 					salaryOffset = "0";
 				}
 
