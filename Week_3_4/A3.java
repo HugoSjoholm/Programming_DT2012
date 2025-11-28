@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class A3 {
 
 	public static void readData(Scanner data, int[] birthYear, int[] phoneNumber, double[] salary, int numDataPoints) {
@@ -42,13 +43,13 @@ public class A3 {
 		int mode = NumericalArrays.mode(birthYear);
 		int samePhoneNr = NumericalArrays.numEqualElements(phoneNumber);
 
-		System.out.println("Mode: " + mode);
-		System.out.println("Same nr: " + samePhoneNr);
-		System.out.println("Max: " + NumericalArrays.max(salary));
-		System.out.println("Min: " + NumericalArrays.min(salary));
-		System.out.println("Mean: " + NumericalArrays.average(salary));
-		System.out.println("Stddev: " + NumericalArrays.standardDeviation(salary));
-		System.out.println("Median: " + NumericalArrays.median(salary));
+		System.out.println("The year " + mode + " is the most frequent birth year");
+		System.out.println(samePhoneNr + " telephone numbers appear more than once");
+		System.out.print("Maximum salary is " + NumericalArrays.max(salary));
+		System.out.println(" and minimum salary is " + NumericalArrays.min(salary));
+		System.out.print("The mean salary is " + NumericalArrays.roundToTwoDeciaml(NumericalArrays.average(salary)));
+		System.out.println(" with a standard deviation of " + NumericalArrays.roundToTwoDeciaml(NumericalArrays.standardDeviation(salary)));
+		System.out.println("Half of the sample has a salary lower than " + NumericalArrays.roundToTwoDeciaml(NumericalArrays.median(salary)));
 
 	}
 }

@@ -6,8 +6,8 @@ public class A1 {
 		int phoneNumber = 0;
 		int salary = 0;
 
-		int minYear = 0;
-		int maxYear = 0;
+		int minYear = 2025 - 18;
+		int maxYear = 2025 - 65;
 		int maxSalary = 39000;
 		int minSalary = 28800;
 
@@ -24,7 +24,7 @@ public class A1 {
 		for (int i = 0; i < numDataPoints; i++) {
 			// age
 				// years
-				int age_year = (int) ((Math.random() * 48) + 18 + 1960);
+				int age_year = (int)((Math.random() * ((minYear - maxYear) + 1)) + maxYear);
 
 				// month
 				int[] daysInMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
