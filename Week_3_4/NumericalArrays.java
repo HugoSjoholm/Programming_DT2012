@@ -1,3 +1,5 @@
+import javax.swing.text.html.HTMLDocument.BlockElement;
+
 public class NumericalArrays {
   
   //Returns the smallest value in the array of doubles it gets as argument.
@@ -38,13 +40,13 @@ public class NumericalArrays {
   
   //Returns the smallest value in in the array of ints it gets as argument.
   public static int min(int[] numarray) {
-    int min = Integer.MAX_VALUE;
+    int min = numarray[0];
     
-    //this function is never used??? why does it exist???
-    System.out.println("IF YOU'RE RADING THIS SOEMTHIGN IS WRONG AND YOU NEED TO IMPLUMENT THIS FUNCTION");
-
-    // Compare every value in numarray to max, if the value is smaller
-    // than min, replace min!
+    for (int i = 0; i < numarray.length; i++) {
+      if (numarray[i] < min) {
+        min = numarray[i];
+      }
+    }
 
     return min;
   }
@@ -113,6 +115,28 @@ public class NumericalArrays {
 
 public static double[] sortArr(double[] numarray) {
   double swap = 0;
+  for (int j = 0; j < numarray.length; j++) {
+    for (int i = 0; i < numarray.length - 1; i++) {
+      // System.out.println(i + " has a value of " + salary[i] + ". next in line is "
+      // + salary[i+1]);
+
+      if (numarray[i] > numarray[i + 1]) {
+        // System.out.println("swap");
+        // System.out.println("swapped " + salary[i] + " and " + salary[i + 1] + " at
+        // index " + i + " - " + j);
+        swap = numarray[i];
+        numarray[i] = numarray[i + 1];
+        numarray[i + 1] = swap;
+
+        
+      }
+    }
+    // System.out.println("j - " + j);
+  }
+  return numarray;
+}
+public static int[] sortArr(int[] numarray) {
+  int swap = 0;
   for (int j = 0; j < numarray.length; j++) {
     for (int i = 0; i < numarray.length - 1; i++) {
       // System.out.println(i + " has a value of " + salary[i] + ". next in line is "
@@ -270,5 +294,16 @@ public static double[] sortArr(double[] numarray) {
     double rounded = tmp / 100.0;
     return rounded;
   }
-
+  public static void printArray(int[] arr, boolean newLine) {
+    if (newLine) {
+      for (int i = 0; i < arr.length; i++) {
+        System.out.println(arr[i]);
+      }
+    }
+    else {
+      for (int i = 0; i < arr.length; i++) {
+        System.out.print(arr[i]);
+      }
+    }
+  }
 }
