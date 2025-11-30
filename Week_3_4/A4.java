@@ -12,7 +12,10 @@ public class A4{
 		readData(data, birthYear, phoneNumber, salary, numDataPoints);
 		System.out.println("Done");
 		drawHistogram(birthYear);
+		StdDraw.save("histogram.png");
+		StdDraw.clear();
 		drawScatterPlot(salary);
+		StdDraw.save("scatterplot.png");
 		/*	
 			for (int i = 0; i < salary.length; i++) {
 				System.out.println(i + " - " + birthYear[i] + " " + phoneNumber[i] + " " + salary[i]);
@@ -72,39 +75,93 @@ public class A4{
 	}
 	
 	public static void drawHistogram(int[] birthYear){
-		StdDraw.setXscale(0,birthYear.length + 10);
-    	StdDraw.setYscale(0,100);
-		StdDraw.show();
-
 		//NumericalArrays.printArray(birthYear, true);
+		int recWidth = 3;
+
 
 		int[][] freq = getBirthYearFreq(birthYear);
-		NumericalArrays.printArray(freq, true);
+		StdDraw.setXscale(0,(5 + (freq.length* (recWidth + 1))));
+		System.out.println("max is: " + NumericalArrays.max(NumericalArrays.To1DArray(freq, 1)));
+		int peakValue = (NumericalArrays.max(NumericalArrays.To1DArray(freq, 1))*2);
+    	StdDraw.setYscale(0 , 1.4 * peakValue);
 
-		System.out.println("HELLOW?!?!??!? ---------------------- ");
+		
+		//NumericalArrays.printArray(freq, true);
+
+		
 
 
-		int x = 5;
-
+		//NumericalArrays.printArray(freq, true);
 		// Your code here
-		StdDraw.filledRectangle(x, x, x, x);
+		
+		double verticalOffset = peakValue * 0.2;
+
+		for (int i = 0; i < freq.length; i++) {
+			int x = 5 + (i* (recWidth + 1));
+			StdDraw.filledRectangle(x, (freq[i][1]) + verticalOffset, recWidth/2, freq[i][1]);
+			StdDraw.text((double)x, verticalOffset/2, String.valueOf(freq[i][0]), 90.0);
+		}
+		StdDraw.show();
+		
 
 	}
 
 	public static void drawScatterPlot(double [] salary){
-		int min = (int) NumericalArrays.min(salary);
-		int max = (int) NumericalArrays.max(salary);
+		double min = NumericalArrays.min(salary);
+		double max = NumericalArrays.max(salary);
 		int padding = 10000;
-		StdDraw.setXscale(min-padding,max+padding);
-    	StdDraw.setYscale(min-padding,max+padding);
-		StdDraw.show();
+		StdDraw.setXscale(0, salary.length * 1.2);
+    	StdDraw.setYscale(min-(padding * 0.1),max + (padding * 0.1));
+
 		
 		// Your code here
+		//NumericalArrays.printArray(salary, true);
+
+
 
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.filledRectangle(min, NumericalArrays.average(salary), max, 100);
-		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.filledRectangle(min, NumericalArrays.median(salary), max, 100);
+		StdDraw.filledRectangle((salary.length * 1.2)/2, NumericalArrays.average(salary), (salary.length * 1)/2, 20);
+		StdDraw.setPenColor(StdDraw.GREEN);
+		StdDraw.filledRectangle(
+			(salary.length * 1.2) / 2, 
+			NumericalArrays.average(salary) + NumericalArrays.standardDeviation(salary), 
+			(salary.length * 1) / 2,
+			20
+		);
+		StdDraw.filledRectangle(
+			(salary.length * 1.2) / 2,
+			NumericalArrays.average(salary) - NumericalArrays.standardDeviation(salary),
+			(salary.length * 1) / 2,
+			20
+		);
+		
+		double radius = 1 / ((Math.pow(salary.length, (1 / 1.6)) + 90));
+		StdDraw.setPenRadius(radius);
+		StdDraw.setPenColor(StdDraw.BLUE);
 
+		//System.out.println("foor loop min and max respectivley is " + min + " " + max);
+
+		
+		for (int i = 0; i < salary.length; i++) {
+			//System.out.println(salary[i]);
+			StdDraw.setPenColor(StdDraw.BLUE);
+			StdDraw.setPenRadius(radius);
+			//System.out.println(salary[i] + " against " + max + " and " + min);
+			if (salary[i] == max || salary[i] == min) {
+				StdDraw.setPenRadius(radius * 2);
+				StdDraw.setPenColor(StdDraw.RED);
+				StdDraw.point(i + salary.length * 0.1, salary[i]);
+			}
+			else {
+
+				StdDraw.point(i + salary.length * 0.1, salary[i]);
+			}
+
+		}
+		//StdDraw.point(i + salary.length * 0.1, salary[i]);
+
+
+
+		StdDraw.show();
 	}
 }

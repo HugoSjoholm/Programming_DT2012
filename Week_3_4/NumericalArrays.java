@@ -57,8 +57,11 @@ public class NumericalArrays {
   public static int max(int[] numarray) {
     int max = Integer.MIN_VALUE;
     
-    // Compare every value in numarray to max, if the value is greater
-    // than max, replace max!
+    for (int i = 0; i < numarray.length; i++) {
+      if (numarray[i] > max) {
+        max = numarray[i];
+      }
+    }
 
     return max;
   }
@@ -93,16 +96,17 @@ public class NumericalArrays {
   
   //Returns the median of all the values in the array of ints it gets as argument.
   public static double median(double[] numarray) {
+    double[] tmpArr = numarray.clone();
     double median = 0;
     double swap = 0;
 
-    numarray = sortArr(numarray);
+    tmpArr = sortArr(tmpArr);
 
-    if ((numarray.length % 2) != 0) {
-      median = numarray[(int)(numarray.length/2)];
+    if ((tmpArr.length % 2) != 0) {
+      median = tmpArr[(int)(tmpArr.length/2)];
     }
     else {
-      double tmp = numarray[(int)(numarray.length / 2) - 1] +  numarray[(int)(numarray.length / 2)];
+      double tmp = tmpArr[(int)(tmpArr.length / 2) - 1] +  tmpArr[(int)(tmpArr.length / 2)];
       median = tmp / 2;
     }
 
@@ -306,6 +310,18 @@ public static int[] sortArr(int[] numarray) {
       }
     }
   }
+  
+  public static void printArray(double[] arr, boolean newLine) {
+    if (newLine) {
+      for (int i = 0; i < arr.length; i++) {
+        System.out.println(arr[i]);
+      }
+    } else {
+      for (int i = 0; i < arr.length; i++) {
+        System.out.print(arr[i]);
+      }
+    }
+  }
   public static void printArray(int[][] arr, boolean newLine, int y) {
     if (newLine) {
       for (int i = 0; i < arr.length; i++) {
@@ -349,6 +365,15 @@ public static int[] sortArr(int[] numarray) {
     if (printResult) {System.out.println(uniqueCount);}
 
     return uniqueCount;
+  }
+  public static int[] To1DArray(int[][] arr, int workedIndex) {
+    int[] newArr = new int[arr.length];
+
+    for (int i = 0; i < newArr.length; i++) {
+      newArr[i] = arr[i][workedIndex];
+    }
+
+    return newArr;
   }
 }
 
