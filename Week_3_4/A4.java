@@ -37,25 +37,34 @@ public class A4{
 	}
 
 	public static int[][] getBirthYearFreq(int[] birthYear){
-		int[][] freq = new int[birthYear.length][2];
-		
+		System.out.println("getBirthYearFreq() started");
 		int[] sortedYears = NumericalArrays.sortArr(birthYear);
-
-		NumericalArrays.printArray(sortedYears, true);
-
-		for (int j = 0; j < sortedYears.length - 1; j++) {
-			freq[j][0] = sortedYears[j];
-			int tmpCount = 0;
-			for (int i = j; i < (sortedYears.length - 1); i++) {
-				if (sortedYears[i] == sortedYears[i + 1]) {
-					tmpCount++;
+		int[][] freq = new int[NumericalArrays.uniqueItemsInArray(sortedYears, true)][2];
+		//NumericalArrays.printArray(sortedYears, true);
+		//NumericalArrays.printArray(sortedYears, true);
+		if (true) { //used for scope so I can have int j only exist here
+			int j = 0;
+			freq[j][0] = sortedYears[0];
+			for (int i = 0; i < sortedYears.length - 1; i++) {
+				if (sortedYears[i] != sortedYears[i + 1]) {
+					freq[j][0] = sortedYears[i];
+					j++;
 				}
 			}
-			freq[j][1] = tmpCount;
-			System.out.println(freq[j][0] + " " + freq[j][1]);
-	
 		}
-
+		//NumericalArrays.printArray(freq, true);
+		//System.out.println("YOOOOO");
+		
+		for (int i = 0; i < freq.length; i++) {
+			int ammountOfCopies = 0;
+			for (int j = 0; j < sortedYears.length; j++) {
+				if (freq[i][0] == sortedYears[j]) {
+					ammountOfCopies++;
+				}
+			}
+			freq[i][1] = ammountOfCopies;
+		}
+		//NumericalArrays.printArray(freq, true);
 
 		// Your code here
 				
@@ -67,9 +76,10 @@ public class A4{
     	StdDraw.setYscale(0,100);
 		StdDraw.show();
 
-		NumericalArrays.printArray(birthYear, true);
+		//NumericalArrays.printArray(birthYear, true);
 
 		int[][] freq = getBirthYearFreq(birthYear);
+		NumericalArrays.printArray(freq, true);
 
 		System.out.println("HELLOW?!?!??!? ---------------------- ");
 

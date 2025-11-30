@@ -306,4 +306,50 @@ public static int[] sortArr(int[] numarray) {
       }
     }
   }
+  public static void printArray(int[][] arr, boolean newLine, int y) {
+    if (newLine) {
+      for (int i = 0; i < arr.length; i++) {
+        System.out.println(arr[i][y]);
+      }
+    } else {
+      for (int i = 0; i < arr.length; i++) {
+        System.out.print(arr[i][y]);
+      }
+    }
+  }
+  public static void printArray(int[][] arr, boolean newLine) {
+    if (newLine) {
+      for (int i = 0; i < arr.length; i++) {
+        for (int j = 0; j < arr[i].length; j++) {
+          System.out.print(arr[i][j] + " ");
+        }
+        System.out.print("\n");
+      }
+    } else {
+      for (int i = 0; i < arr.length; i++) {
+        for (int j = 0; j < arr[i].length; j++) {
+          System.out.print(arr[i][j] + " ");
+        }
+      }
+    }
+  }
+  public static int uniqueItemsInArray(int[] arr, boolean printResult) {
+    int uniqueCount = 0;
+
+    if (arr.length == 0) {
+      return 0;
+    }
+    int previous = arr[0];
+    for (int i = 1; i < arr.length; i++) {
+      if (arr[i] != arr[i - 1]) {
+        
+        uniqueCount++;
+      }
+    }
+    if (printResult) {System.out.println(uniqueCount);}
+
+    return uniqueCount;
+  }
 }
+
+
