@@ -13,14 +13,10 @@ public class A4{
 		System.out.println("Done");
 		drawHistogram(birthYear);
 		StdDraw.save("histogram.png");
-		StdDraw.clear();
+		StdDraw.clear(); //clears before next plot, otherwise the scarretplot draws ontop the histrogram. StdDraw can only handle one canvas for some dumb reasons.
 		drawScatterPlot(salary);
 		StdDraw.save("scatterplot.png");
-		/*	
-			for (int i = 0; i < salary.length; i++) {
-				System.out.println(i + " - " + birthYear[i] + " " + phoneNumber[i] + " " + salary[i]);
-			}
-		 */
+		
 	}
 
 	public static void readData(Scanner data, int[] birthYear, int[] phoneNumber, double[] salary, int numDataPoints) {
@@ -42,9 +38,8 @@ public class A4{
 	public static int[][] getBirthYearFreq(int[] birthYear){
 		System.out.println("getBirthYearFreq() started");
 		int[] sortedYears = NumericalArrays.sortArr(birthYear);
-		int[][] freq = new int[NumericalArrays.uniqueItemsInArray(sortedYears, true)][2];
-		//NumericalArrays.printArray(sortedYears, true);
-		//NumericalArrays.printArray(sortedYears, true);
+		int[][] freq = new int[NumericalArrays.uniqueItemsInArray(sortedYears, false)][2]; //uniqueItemsInArray() assumes a sorted array. I think, I don't remeber lmao
+
 		if (true) { //used for scope so I can have int j only exist here
 			int j = 0;
 			freq[j][0] = sortedYears[0];
@@ -55,8 +50,6 @@ public class A4{
 				}
 			}
 		}
-		//NumericalArrays.printArray(freq, true);
-		//System.out.println("YOOOOO");
 		
 		for (int i = 0; i < freq.length; i++) {
 			int ammountOfCopies = 0;
@@ -76,30 +69,23 @@ public class A4{
 	
 	public static void drawHistogram(int[] birthYear){
 		//NumericalArrays.printArray(birthYear, true);
-		int recWidth = 3;
+		int recWidth = 3; //this is related to the width. this is just a value I chose
 
 
 		int[][] freq = getBirthYearFreq(birthYear);
-		StdDraw.setXscale(0,(5 + (freq.length* (recWidth + 1))));
-		System.out.println("max is: " + NumericalArrays.max(NumericalArrays.To1DArray(freq, 1)));
+		StdDraw.setXscale(0,(5 + (freq.length* (recWidth + 1)))); //black magic, idk how I did this. 
+		//System.out.println("max is: " + NumericalArrays.max(NumericalArrays.To1DArray(freq, 1)));
 		int peakValue = (NumericalArrays.max(NumericalArrays.To1DArray(freq, 1))*2);
-    	StdDraw.setYscale(0 , 1.4 * peakValue);
-
-		
-		//NumericalArrays.printArray(freq, true);
-
-		
-
-
-		//NumericalArrays.printArray(freq, true);
+    	StdDraw.setYscale(0 , 1.4 * peakValue); //1.4 to have 20% of padding above and below
+	
 		// Your code here
 		
-		double verticalOffset = peakValue * 0.2;
+		double verticalOffset = peakValue * 0.2; //an ofset to make space for the text. 20% of padding
 
-		for (int i = 0; i < freq.length; i++) {
+		for (int i = 0; i < freq.length; i++) { //draws the acutal histogram
 			int x = 5 + (i* (recWidth + 1));
-			StdDraw.filledRectangle(x, (freq[i][1]) + verticalOffset, recWidth/2, freq[i][1]);
-			StdDraw.text((double)x, verticalOffset/2, String.valueOf(freq[i][0]), 90.0);
+			StdDraw.filledRectangle(x, (freq[i][1]) + verticalOffset, recWidth/2, freq[i][1]); //draws the rectables
+			StdDraw.text((double)x, verticalOffset/2, String.valueOf(freq[i][0]), 90.0); //draws the years in text, rotates 90 degress so they fit under the recatngles
 		}
 		StdDraw.show();
 		
@@ -110,17 +96,14 @@ public class A4{
 		double min = NumericalArrays.min(salary);
 		double max = NumericalArrays.max(salary);
 		int padding = 10000;
-		StdDraw.setXscale(0, salary.length * 1.2);
-    	StdDraw.setYscale(min-(padding * 0.1),max + (padding * 0.1));
+		StdDraw.setXscale(0, salary.length * 1.2); //use 1.2 so I can 10% padding on both sides of the diagram
+    	StdDraw.setYscale(min-(padding * 0.1),max + (padding * 0.1)); //black magic, I don't remeber how I did this
 
-		
-		// Your code here
-		//NumericalArrays.printArray(salary, true);
-
-
-
+		//draw median, it's a constant line acros all points so a rectangle should be fine. no need for a line
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.filledRectangle((salary.length * 1.2)/2, NumericalArrays.average(salary), (salary.length * 1)/2, 20);
+		
+		//draw standard deviation, it's a constant line acros all points so a rectangle should be fine. no need for a line
 		StdDraw.setPenColor(StdDraw.GREEN);
 		StdDraw.filledRectangle(
 			(salary.length * 1.2) / 2, 
@@ -135,25 +118,24 @@ public class A4{
 			20
 		);
 		
-		double radius = 1 / ((Math.pow(salary.length, (1 / 1.6)) + 90));
+		double radius = 1 / ((Math.pow(salary.length, (1 / 1.6)) + 90)); //radius calculated to scale with the ammount of data points. Dunno how it works, I played around with desmos and got something that works
 		StdDraw.setPenRadius(radius);
 		StdDraw.setPenColor(StdDraw.BLUE);
 
 		//System.out.println("foor loop min and max respectivley is " + min + " " + max);
 
-		
-		for (int i = 0; i < salary.length; i++) {
+		for (int i = 0; i < salary.length; i++) { //Print the data points
 			//System.out.println(salary[i]);
 			StdDraw.setPenColor(StdDraw.BLUE);
 			StdDraw.setPenRadius(radius);
 			//System.out.println(salary[i] + " against " + max + " and " + min);
-			if (salary[i] == max || salary[i] == min) {
+			if (salary[i] == max || salary[i] == min) { //draw as RED if the current point is max or min
 				StdDraw.setPenRadius(radius * 2);
 				StdDraw.setPenColor(StdDraw.RED);
 				StdDraw.point(i + salary.length * 0.1, salary[i]);
 			}
 			else {
-
+				//otherwise just draw it normally
 				StdDraw.point(i + salary.length * 0.1, salary[i]);
 			}
 

@@ -8,8 +8,8 @@ public class A1 {
 
 		int minYear = 2025 - 18;
 		int maxYear = 2025 - 65;
-		int maxSalary = 39000;
-		int minSalary = 28800;
+		int maxSalary = 39000 * 12;
+		int minSalary = 28800 * 12;
 
 		//fun stuff. ignore this if you're grading
 		boolean commaSeperated = false;
