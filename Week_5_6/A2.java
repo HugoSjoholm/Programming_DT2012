@@ -27,15 +27,15 @@ public class A2 {
     public static void blur(final Picture input) {
         Picture pic = new Picture(input);
         
-        //gausian blur aproximation
+        //Box blur (normalized)
         // https://en.wikipedia.org/wiki/Kernel_(image_processing)#Details
         int[][] kernel = {
-                { 1, 2, 1 },
-                { 2, 4, 2 },
-                { 1, 2, 1 }
+                { 1, 1, 1 },
+                { 1, 1, 1 },
+                { 1, 1, 1 }
         };
 
-        double normalFactor = 0.0625; //mutiply this later on to normalize the matrix(?) so the avrage values/brighness of the images does not unexpectadly increase.
+        double normalFactor = 9; //devide by this later on to normalize the matrix(?) so the avrage values/brighness of the images does not unexpectadly increase.
 
         for (int x = 1; x < input.width() - 1; x++) {
             for (int y = 1; y < input.height() - 1; y++) { 
@@ -54,15 +54,15 @@ public class A2 {
                 }
 
                 //for future. optamize this using a vector3 for each channel value. so instead of three version of each variable you only have a vector3. 
-                double totalR = acumulatorR * normalFactor;
-                double totalG = acumulatorG * normalFactor;
-                double totalB = acumulatorB * normalFactor;
+                double totalR = acumulatorR / normalFactor;
+                double totalG = acumulatorG / normalFactor;
+                double totalB = acumulatorB / normalFactor;
 
 
                 pic.set(x, y, new Color(
-                    (int)totalR, 
-                    (int)totalG, 
-                    (int)totalB)
+                    clamp((int)totalR, 0, 255),
+                    clamp((int)totalG, 0, 255),
+                    clamp((int)totalB, 0, 255))
                 );
  
             }
@@ -78,15 +78,15 @@ public class A2 {
 
         Picture pic = new Picture(input);
 
-        // sharpening
-        // https://en.wikipedia.org/wiki/Kernel_(image_processing)#Details
+        
+        //whack ass kernel
         int[][] kernel = {
-                { 0, -1, 0 },
-                { -1, 5, -1 },
-                { 0, -1, 0 }
+                { -1, -1, -1 },
+                { -1, 16, -1 },
+                { -1, -1, -1 }
         };
 
-        double normalFactor = 1; // why is this 1 for sharpening????
+        double normalFactor = 8; // why is this 1 for sharpening????
 
         for (int x = 1; x < input.width() - 1; x++) {
             for (int y = 1; y < input.height() - 1; y++) {
@@ -106,9 +106,9 @@ public class A2 {
 
                 // for future. optamize this using a vector3 for each channel value. so instead
                 // of three version of each variable you only have a vector3.
-                double totalR = acumulatorR * normalFactor;
-                double totalG = acumulatorG * normalFactor;
-                double totalB = acumulatorB * normalFactor;
+                double totalR = acumulatorR / normalFactor;
+                double totalG = acumulatorG / normalFactor;
+                double totalB = acumulatorB / normalFactor;
                 //System.out.println(totalR);
                 
                 pic.set(x, y, new Color(
@@ -127,7 +127,38 @@ public class A2 {
         // Mind what you have to do with the ootput (show, save)
     }
 
-    public static void vignette(Picture pic) {
+    public static void vignette(Picture input) {
+        Picture pic = new Picture(input);
+        int centerX = input.width() / 2;
+        int centery = input.height() / 2;
+        
+        for (int x = 0; x < input.width() - 1; x++) {
+            for (int y = 0; y < input.height() - 1; y++) {
+                //math formula d = sqrt((x_2 - x_1 )^2 + (y_2 - y_1)^2)
+                double distance = Math.sqrt(Math.pow((x - centerX),2) + Math.pow(y - centery, 2));
+                distance = (255 - distance)/255;
+                Color tmp = input.get(x, y);
+                
+                //System.out.println(tmp.getBlue() + " * " + distance);
+                tmp = new Color(
+                    (int)(tmp.getRed() * distance), 
+                    (int)(tmp.getGreen() * distance), 
+                    (int)(tmp.getBlue() * distance)
+                );
+                
+                
+                //tmp = new Color((int)distance, (int)distance, (int)distance);
+
+                //System.out.println(distance);
+                pic.set(x, y, tmp);
+
+            }
+        }
+
+        pic.show();
+        pic.save("pic7.jpg");
+
+
         // Implement the vignete method
         // Mind what you have to do with the ootput (show, save)
     }
@@ -147,7 +178,7 @@ public class A2 {
         input.show();
         blur(input);
         sharpen(input);
-
+        vignette(input);
 
 
 
