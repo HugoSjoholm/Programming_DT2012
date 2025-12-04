@@ -74,7 +74,55 @@ public class A2 {
         // Mind what you have to do with the ootput (show, save)
     }
 
-    public static void sharpen(Picture pic) {
+    public static void sharpen(Picture input) {
+
+        Picture pic = new Picture(input);
+
+        // sharpening
+        // https://en.wikipedia.org/wiki/Kernel_(image_processing)#Details
+        int[][] kernel = {
+                { 0, -1, 0 },
+                { -1, 5, -1 },
+                { 0, -1, 0 }
+        };
+
+        double normalFactor = 1; // why is this 1 for sharpening????
+
+        for (int x = 1; x < input.width() - 1; x++) {
+            for (int y = 1; y < input.height() - 1; y++) {
+                int acumulatorR = 0;
+                int acumulatorG = 0;
+                int acumulatorB = 0;
+
+                for (int kx = 0; kx < kernel.length; kx++) {
+                    for (int ky = 0; ky < kernel[kx].length; ky++) {
+                        Color tmp = input.get(x + kx - 1, y + ky - 1);
+                        acumulatorR += kernel[kx][ky] * tmp.getRed();
+                        acumulatorG += kernel[kx][ky] * tmp.getGreen();
+                        acumulatorB += kernel[kx][ky] * tmp.getBlue();
+
+                    }
+                }
+
+                // for future. optamize this using a vector3 for each channel value. so instead
+                // of three version of each variable you only have a vector3.
+                double totalR = acumulatorR * normalFactor;
+                double totalG = acumulatorG * normalFactor;
+                double totalB = acumulatorB * normalFactor;
+                //System.out.println(totalR);
+                
+                pic.set(x, y, new Color(
+                        clamp((int)totalR,0,255),
+                        clamp((int)totalG,0,255),
+                        clamp((int)totalB,0,255)
+                    ));
+
+            }
+        }
+        pic.show();
+        pic.save("pic6.jpg");
+
+
         // Implement the sharpen method
         // Mind what you have to do with the ootput (show, save)
     }
@@ -98,7 +146,7 @@ public class A2 {
         }
         input.show();
         blur(input);
-
+        sharpen(input);
 
 
 
@@ -122,5 +170,19 @@ public class A2 {
         }
 
         return tmp;
+    }
+    public static int clamp(int num, int min, int max) {
+        if (num > min && num < max) {
+            return num;
+        }
+        if (num <= min) {
+            return min;
+        }
+        if (num >= max) {
+            return max;
+        }
+        else {
+            return -1; //Error
+        }
     }
 }
