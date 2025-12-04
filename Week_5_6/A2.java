@@ -1,6 +1,13 @@
 import java.awt.Color;
 
 public class A2 {
+    //defines special color codes that can later be used in prints for cool effects and visual enthasis. 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    //public so it can be ascces across the file. final so the variables cannot be changed
+    //idk what static does tbh. but it is needed here because we're not inside a class definition for a object. 
+
 
     private static Color average(Color[] colors, int[] weights) {
         double red = 0;
@@ -17,7 +24,52 @@ public class A2 {
         return nine;
     }
 
-    public static void blur(Picture pic) {
+    public static void blur(final Picture input) {
+        Picture pic = new Picture(input);
+        
+        //gausian blur aproximation
+        // https://en.wikipedia.org/wiki/Kernel_(image_processing)#Details
+        int[][] kernel = {
+                { 1, 2, 1 },
+                { 2, 4, 2 },
+                { 1, 2, 1 }
+        };
+
+        double normalFactor = 0.0625; //mutiply this later on to normalize the matrix(?) so the avrage values/brighness of the images does not unexpectadly increase.
+
+        for (int x = 1; x < input.width() - 1; x++) {
+            for (int y = 1; y < input.height() - 1; y++) { 
+                int acumulatorR = 0;
+                int acumulatorG = 0;
+                int acumulatorB = 0;
+
+                for (int kx = 0; kx < kernel.length; kx++) {
+                    for (int ky = 0; ky < kernel[kx].length; ky++) {
+                        Color tmp = input.get(x + kx - 1, y + ky - 1);
+                        acumulatorR += kernel[kx][ky] * tmp.getRed();
+                        acumulatorG += kernel[kx][ky] * tmp.getGreen();
+                        acumulatorB += kernel[kx][ky] * tmp.getBlue();
+
+                    }
+                }
+
+                //for future. optamize this using a vector3 for each channel value. so instead of three version of each variable you only have a vector3. 
+                double totalR = acumulatorR * normalFactor;
+                double totalG = acumulatorG * normalFactor;
+                double totalB = acumulatorB * normalFactor;
+
+
+                pic.set(x, y, new Color(
+                    (int)totalR, 
+                    (int)totalG, 
+                    (int)totalB)
+                );
+ 
+            }
+        }
+        pic.show();
+        pic.save("pic5.jpg");
+
         // Implement the blur method
         // Mind what you have to do with the ootput (show, save)
     }
@@ -33,8 +85,42 @@ public class A2 {
     }
 
     public static void main(String[] args) {
+        String firstArg = "";
+        Picture input;
+        try {
+            firstArg = args[0];
+            //System.out.println("First argument: " + firstArg);
+            input = new Picture(args[0]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            input = new Picture(funError(new Picture(500,500)));
+            System.out.println(ANSI_RED + "No argument provided!" + ANSI_RESET + " Please provide inpuut in this format" + ANSI_RESET);
+            System.out.println("Example: " + ANSI_GREEN + "java A2.java baboon.jpg" + ANSI_RESET);
+        }
+        input.show();
+        blur(input);
+
+
+
+
+
+
         //Read a filename from the command line
         // Test EACH and ALL of your methods
 
+    }
+    public static Picture funError(Picture pic) { //this function is for fun. It generates a grid of black and magenta squares, similar to a error exture from Gmod.
+        Picture tmp = new Picture(pic);
+        for (int x = 0; x < pic.width(); x++) {
+            for (int y = 0; y < pic.height(); y++) {
+                if (((x / 20) + (y / 20)) % 2 == 0) { //20 is the seize of the squares
+                    tmp.set(x, y, Color.BLACK);
+                }
+                else {
+                    tmp.set(x, y, Color.MAGENTA);
+                }
+            }   
+        }
+
+        return tmp;
     }
 }
