@@ -21,8 +21,10 @@ public class Coordinate{
 
 
 	public String toString(){
+
+
 		// Implement a toString method
-		return "";
+		return "" + latitude + "° N, " + longitude + "° E ";
 	}
 
 	private int sign(double deg){
@@ -37,15 +39,20 @@ public class Coordinate{
 		// https://en.wikipedia.org/wiki/Geographic_coordinate_conversion
 		// and determine the values for the variables degrees, minutes, and seconds
 		
-		return "";
+		int flooredDeg = (int)deg;
+
+		double min = (deg - flooredDeg) * 60;
+		int seconds = (int)((min - ((int)min)) * 60);
+
+		return "" + flooredDeg + "° " + (int)min + "' " + seconds + "'' ";
 
 	}
 
 	public String toSexagecimal(){
 		String sexagecimalLat = sexagecimalDegrees(latitude);
 		String sexagecimalLon = sexagecimalDegrees(longitude);
-		String ns = "A";
-		String ew = "B";
+		String ns = "N";
+		String ew = "E";
 		// Your code here
 		// Use the methods above to create the appropriate string to return
 
