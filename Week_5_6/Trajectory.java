@@ -31,86 +31,35 @@ public class Trajectory {
             if (longitude > maxX) {maxX = longitude;}
 
         }
+        data.close();
 
-        //printArray(cords);
-        StdDraw.setXscale(minX - 5, maxX + 5);
-        StdDraw.setYscale(minY - 5, maxY + 5);
 
-        //StdDraw.setXscale(-1, 1);
-        //StdDraw.setYscale(-1, 1);
+        StdDraw.setCanvasSize(1000, 1000);
+        //sets the scale to the min and max of each axists, and then some padding between the edges and points.
+        int padding = 5;
+        StdDraw.setXscale(minX - padding, maxX + padding);
+        StdDraw.setYscale(minY - padding, maxY + padding);
+        //System.out.println("min max for x: " + minX + " " + maxX + "\nmin max for y: " + minY + " " + maxY);
 
-        System.out.println("min max for x: " + minX + " " + maxX + "\nmin max for y: " + minY + " " + maxY);
-
-        StdDraw.setPenRadius(0.02);
-
-        
-        StdDraw.setPenColor(StdDraw.YELLOW);
+        //draws the first points of the array (halmstad)
+        StdDraw.setPenRadius(0.02); //pretend this has a radius of 10 :)
+        StdDraw.setPenColor(StdDraw.YELLOW); 
         StdDraw.point(cords[0].getLongitude(), cords[0].getLatitude());
         
-        
+        //Draws all other cities
         StdDraw.setPenColor(StdDraw.BLACK);
-        for (int i = 1; i < cords.length; i++) { //draw points
+        for (int i = 1; i < cords.length; i++) {
             StdDraw.point(cords[i].getLongitude(), cords[i].getLatitude());
             //System.out.println(cords[i].getLongitude() + " " + cords[i].getLatitude());
         }
 
+        
+        //Draw lines
         StdDraw.setPenRadius(0.002);
-        //printArray(cordsLeft);
-        
-        Coordinate[] cordsLeft = clone(cords);
-        /*
-        Coordinate tmp = cords[0];
-        double minDistance = 9999999;
-        int closestsIndex = -1;
- 
-        for (int j = 1; j < cordsLeft.length; j++) {
-            double d = tmp.distanceTo(cordsLeft[j]);
-            if (d < minDistance) {
-                minDistance = d;
-                closestsIndex = j;
-                System.out.println("Distance is now: " + d);
-            }
-        }
-        StdDraw.line(
-            tmp.getLongitude(), tmp.getLatitude(),
-            cordsLeft[closestsIndex].getLongitude(), cordsLeft[closestsIndex].getLatitude()
-        );
-        
-        tmp = cordsLeft[closestsIndex];
-        
-        cordsLeft = removeAt(cordsLeft, closestsIndex);
-
-
-
-
-
-        minDistance = 9999999;
-        closestsIndex = -1;
-
-        for (int j = 1; j < cordsLeft.length; j++) {
-            double d = tmp.distanceTo(cordsLeft[j]);
-            if (d < minDistance) {
-                minDistance = d;
-                closestsIndex = j;
-                System.out.println("Distance is now: " + d);
-            }
-        }
-        StdDraw.line(
-            tmp.getLongitude(), tmp.getLatitude(),
-            cordsLeft[closestsIndex].getLongitude(), cordsLeft[closestsIndex].getLatitude()
-        );
-        System.out.println("Draw between" + tmp.getLongitude() + " " + tmp.getLatitude() + " and " + cordsLeft[closestsIndex].getLongitude() + " " + cordsLeft[closestsIndex].getLatitude());
-
-        tmp = cordsLeft[closestsIndex];
-        cordsLeft = removeAt(cordsLeft, closestsIndex);
-        
-*/
-
-        
-
+        Coordinate[] cordsLeft = clone(cords); //clones all cords into a seperate array which we then remove from when we've drawn a line to that cordinate. 
         Coordinate currentCord = cords[0];  //sets starting cordinate to halmstad cords[] and then
         cordsLeft = removeAt(cordsLeft, 0); //removes the current cord from the pool of possible ones. don't wanna find the closest between the current cordinate and itself
-        for (int i = 0; i < cords.length; i++) {
+        for (int i = 0; i < cords.length - 1; i++) {
             double minDistance = 9999999; //sets a max distance. we want to find the smalles so we need to compare agsint something big to start with
             int closestsIndex = -1;
 
@@ -133,22 +82,16 @@ public class Trajectory {
             //        + cordsLeft[closestsIndex].getLongitude() + " " + cordsLeft[closestsIndex].getLatitude());
 
             currentCord = cordsLeft[closestsIndex]; //sets up next itteration 
-            cordsLeft = removeAt(cordsLeft, closestsIndex);
+            cordsLeft = removeAt(cordsLeft, closestsIndex); //removes the line we just drew to from the pool of possibilites
  
         }
         
-        StdDraw.show();
-
-        // Read the file with coordinates of EU capitals
-
-        // Store them in an array with coordinates
-
-        // Your code here!
-        
+        StdDraw.save("trajectory.jpg");
         System.out.println("num of data points: " + dataPoints);
 
-        
+         
     }
+
     public static void printArray(String[] input) {
         for (int i = 0; i < input.length; i++) {
             System.out.println(i + " - " + input[i]);
