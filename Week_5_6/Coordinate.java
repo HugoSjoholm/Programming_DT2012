@@ -21,8 +21,8 @@ public class Coordinate{
 
 
 	public String toString(){
-
-
+		//Denna är färdig. This is done. 
+		
 		// Implement a toString method
 		return "" + latitude + "° N, " + longitude + "° E ";
 	}
@@ -44,7 +44,7 @@ public class Coordinate{
 		double min = (deg - flooredDeg) * 60;
 		int seconds = (int)((min - ((int)min)) * 60);
 
-		return "" + flooredDeg + "° " + (int)min + "' " + seconds + "'' ";
+		return "" + flooredDeg + "° " + (int)min + "' " + seconds + "'' "; //the min should be rounded, but to get the same result as the assigment I have to floor it. this may cause inacurascies in the future
 
 	}
 
@@ -64,7 +64,7 @@ public class Coordinate{
 		// Modify this method to calculate the haversine
 		// for the angle between latitudes or longitudes
 		
-		return 0.0;
+		return Math.pow(Math.sin(angle / 2), 2);
 	}
 
 	public double distanceTo(Coordinate that){
@@ -75,10 +75,17 @@ public class Coordinate{
 		// And that you need to use the haversine() method above as well
 		// You are only allowed to use the Math library and nothing else
 		double c = 0; // Modify this according to the formulas you read
-		double earthRadius = 6371.01; //in Km
+		double earthRadius = 6371.01; // in Km
 
-		// Your code here
-		
+		double dLat = Math.toRadians((this.latitude - that.latitude));
+		double dLong = Math.toRadians((this.longitude - that.longitude));
+
+		double startLat = Math.toRadians(this.latitude);
+		double endLat = Math.toRadians(that.latitude);
+
+		double a = haversine(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversine(dLong);
+		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
 		return c * earthRadius;
 	}
 
