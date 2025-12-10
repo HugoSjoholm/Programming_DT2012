@@ -1,6 +1,8 @@
 import java.io.File;
 import java.nio.charset.CoderResult;
 import java.util.Scanner;
+import java.io.*;
+import java.lang.Thread;
 
 public class Trajectory {
 
@@ -85,10 +87,22 @@ public class Trajectory {
             cordsLeft = removeAt(cordsLeft, closestsIndex); //removes the line we just drew to from the pool of possibilites
  
         }
-        
-        StdDraw.save("trajectory.jpg");
-        System.out.println("num of data points: " + dataPoints);
 
+        
+
+        StdDraw.save("trajectory.png");
+        System.out.println("num of data points: " + dataPoints);
+        StdDraw.show();
+
+        try {
+            Thread.sleep(5000); // sleep 500 ms
+        } catch (InterruptedException e) {
+            // ignore or handle
+        }
+
+
+        Picture tmpIMG = new Picture("trajectory1.png");
+        tmpIMG.save("trajectory.jpg");
          
     }
 
