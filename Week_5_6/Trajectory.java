@@ -58,7 +58,7 @@ public class Trajectory {
         //printArray(cordsLeft);
         
         Coordinate[] cordsLeft = clone(cords);
-        
+        /*
         Coordinate tmp = cords[0];
         double minDistance = 9999999;
         int closestsIndex = -1;
@@ -75,42 +75,68 @@ public class Trajectory {
             tmp.getLongitude(), tmp.getLatitude(),
             cordsLeft[closestsIndex].getLongitude(), cordsLeft[closestsIndex].getLatitude()
         );
+        
+        tmp = cordsLeft[closestsIndex];
+        
+        cordsLeft = removeAt(cordsLeft, closestsIndex);
+
+
+
+
+
+        minDistance = 9999999;
+        closestsIndex = -1;
+
+        for (int j = 1; j < cordsLeft.length; j++) {
+            double d = tmp.distanceTo(cordsLeft[j]);
+            if (d < minDistance) {
+                minDistance = d;
+                closestsIndex = j;
+                System.out.println("Distance is now: " + d);
+            }
+        }
+        StdDraw.line(
+            tmp.getLongitude(), tmp.getLatitude(),
+            cordsLeft[closestsIndex].getLongitude(), cordsLeft[closestsIndex].getLatitude()
+        );
+        System.out.println("Draw between" + tmp.getLongitude() + " " + tmp.getLatitude() + " and " + cordsLeft[closestsIndex].getLongitude() + " " + cordsLeft[closestsIndex].getLatitude());
+
+        tmp = cordsLeft[closestsIndex];
         cordsLeft = removeAt(cordsLeft, closestsIndex);
         
+*/
+
         
 
-
-        
-        /*
-        
-        cordsLeft = removeAt(cordsLeft, 0);
+        Coordinate currentCord = cords[0];  //sets starting cordinate to halmstad cords[] and then
+        cordsLeft = removeAt(cordsLeft, 0); //removes the current cord from the pool of possible ones. don't wanna find the closest between the current cordinate and itself
         for (int i = 0; i < cords.length; i++) {
-            Coordinate tmp = cords[i];
-            double minDistance = 9999;
+            double minDistance = 9999999; //sets a max distance. we want to find the smalles so we need to compare agsint something big to start with
             int closestsIndex = -1;
+
             for (int j = 0; j < cordsLeft.length; j++) {
-                double d = tmp.distanceTo(cordsLeft[i]);
+                double d = currentCord.distanceTo(cordsLeft[j]);
                 if (d < minDistance) {
                     minDistance = d;
                     closestsIndex = j;
+                    //System.out.println("Distance is now: " + d);
                 }
             }
             StdDraw.line(
-                tmp.getLongitude(), tmp.getLatitude(),
-                cordsLeft[closestsIndex].getLongitude(), cordsLeft[closestsIndex].getLatitude()
+                currentCord.getLongitude(), //current cord x 
+                currentCord.getLatitude(), // current cord y
+                cordsLeft[closestsIndex].getLongitude(), // closest cord x 
+                cordsLeft[closestsIndex].getLatitude() //   closest cord y
             );
- 
+
+            //System.out.println("Draw between" + tmp.getLongitude() + " " + tmp.getLatitude() + " and "
+            //        + cordsLeft[closestsIndex].getLongitude() + " " + cordsLeft[closestsIndex].getLatitude());
+
+            currentCord = cordsLeft[closestsIndex]; //sets up next itteration 
             cordsLeft = removeAt(cordsLeft, closestsIndex);
  
         }
         
-        */
-        
-        
-
-
-
-
         StdDraw.show();
 
         // Read the file with coordinates of EU capitals
