@@ -93,16 +93,6 @@ public class Trajectory {
         StdDraw.save("trajectory.png");
         System.out.println("num of data points: " + dataPoints);
         StdDraw.show();
-
-        try {
-            Thread.sleep(5000); // sleep 500 ms
-        } catch (InterruptedException e) {
-            // ignore or handle
-        }
-
-
-        Picture tmpIMG = new Picture("trajectory1.png");
-        tmpIMG.save("trajectory.jpg");
          
     }
 
@@ -111,7 +101,6 @@ public class Trajectory {
             System.out.println(i + " - " + input[i]);
         }
     }
-    
     public static void printArray(Coordinate[] input) {
         for (int i = 0; i < input.length; i++) {
             System.out.println(i + " - " + input[i].toString());
