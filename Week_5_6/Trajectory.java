@@ -5,9 +5,19 @@ import java.io.*;
 import java.lang.Thread;
 
 public class Trajectory {
-
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     public static void main(String[] args) {
-        
+
+/*        if (args.length == 0 || args[0].isEmpty()) {
+            System.err.println("Error: missing or empty argument.");
+            System.out.println(ANSI_RED + "No argument provided!" + ANSI_RESET + " Please provide input in this format" + ANSI_RESET);
+            System.out.println("Example: " + ANSI_GREEN + "java Trajectory.java < eucapitals.txt" + ANSI_RESET + " NOTE: this cannot be run in powershell for some reason.");
+            return;
+        }
+ */
+
         Scanner data = new Scanner(System.in); // Create a Scanner object
         int dataPoints = Integer.parseInt(data.nextLine());
         

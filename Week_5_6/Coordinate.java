@@ -24,7 +24,7 @@ public class Coordinate{
 		//Denna är färdig. This is done. 
 		
 		// Implement a toString method
-		return "" + latitude + "° N, " + longitude + "° E ";
+		return "" + latitude + "° N, " + longitude + "° E";
 	}
 
 	private int sign(double deg){
@@ -32,6 +32,8 @@ public class Coordinate{
 		// Determine if the coordinate is positive or negative
 		// Send a 1 or a -1 for positive or negative, respectively
 
+
+		//is this function ever used??
 		return 0;
 	}
 	private String sexagecimalDegrees(double deg){
@@ -63,8 +65,8 @@ public class Coordinate{
 	private double haversine(double angle){
 		// Modify this method to calculate the haversine
 		// for the angle between latitudes or longitudes
-		
-		return Math.pow(Math.sin(angle / 2), 2);
+		double tmp = Math.sin(angle / 2);
+		return (tmp * tmp);
 	}
 
 	public double distanceTo(Coordinate that){
@@ -77,14 +79,14 @@ public class Coordinate{
 		double c = 0; // Modify this according to the formulas you read
 		double earthRadius = 6371.01; // in Km
 
-		double dLat = Math.toRadians((this.latitude - that.latitude));
-		double dLong = Math.toRadians((this.longitude - that.longitude));
+		double dsiatanceLatitued = Math.toRadians((this.latitude - that.latitude));
+		double distanceLongitued = Math.toRadians((this.longitude - that.longitude));
 
-		double startLat = Math.toRadians(this.latitude);
-		double endLat = Math.toRadians(that.latitude);
+		double startLatitued = Math.toRadians(this.latitude);
+		double endLatitued = Math.toRadians(that.latitude);
 
-		double a = haversine(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversine(dLong);
-		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		double tmp = haversine(dsiatanceLatitued) + Math.cos(startLatitued) * Math.cos(endLatitued) * haversine(distanceLongitued);
+		c = 2 * Math.atan2(Math.sqrt(tmp), Math.sqrt(1 - tmp));
 
 		return c * earthRadius;
 	}

@@ -2,6 +2,16 @@
 import java.awt.Color;
 
 public class A1 {
+  // defines special color codes that can later be used in prints for cool effects
+  // and visual enthasis.
+  public static final String ANSI_RESET = "\u001B[0m";
+  public static final String ANSI_RED = "\u001B[31m";
+  public static final String ANSI_GREEN = "\u001B[32m";
+  // public so it can be ascces across the file. final so the variables cannot be
+  // changed
+  // idk what static does tbh. but it is needed here because we're not inside a
+  // class definition for a object.
+
 
     public static void complement(Picture pic) {
       Picture newPic = new Picture(pic);
@@ -67,8 +77,21 @@ public class A1 {
     }
 
     public static void main(String[] args) {
-      String filename = args[0];
-      Picture input = new Picture(filename);
+      String firstArg = "";
+      Picture input;
+      try {
+        firstArg = args[0];
+        // System.out.println("First argument: " + firstArg);
+        input = new Picture(firstArg);
+      } catch (ArrayIndexOutOfBoundsException e) {
+        input = new Picture(funError(new Picture(500, 500)));
+        System.out.println(
+            ANSI_RED + "No argument provided!" + ANSI_RESET + " Please provide inpuut in this format" + ANSI_RESET);
+        System.out.println("Example: " + ANSI_GREEN + "java A2.java baboon.jpg" + ANSI_RESET);
+      }
+
+
+      String filename = firstArg;
       //System.out.println(filename);
       //StdDraw.setScale(0,input.width());
       //StdDraw.picture(input.width()/2,input.height()/2,filename);
@@ -85,5 +108,23 @@ public class A1 {
         //StdDraw.save("pic1.jpg");
 
 
+    }
+    
+    public static Picture funError(Picture pic) { // this function is for fun. It generates a grid of black and magenta squares, similar to a error exture from Gmod.
+      
+      
+      
+      Picture tmp = new Picture(pic);
+      for (int x = 0; x < pic.width(); x++) {
+        for (int y = 0; y < pic.height(); y++) {
+          if (((x / 20) + (y / 20)) % 2 == 0) { // 20 is the seize of the squares
+            tmp.set(x, y, Color.BLACK);
+          } else {
+            tmp.set(x, y, Color.MAGENTA);
+          }
+        }
+      }
+
+      return tmp;
     }
 }
